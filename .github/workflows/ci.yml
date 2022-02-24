@@ -1,0 +1,41 @@
+name: CI/CD
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: kirschbaumdevelopment/laravel-test-runner:8.1
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: docker
+          POSTGRES_DB: laravel_vit
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+
+      - name: Prepare Laravel App
+        run: cp .env.ci .env
+
+      - name: Composer Install
+        run: |
+          composer install --no-progress --prefer-dist --optimize-autoloader
+          php artisan key:generate
+
+      - name: Migrations
+        run: php artisan migrate
+
+      - name: Install NPM Packages
+        run: |
+          npm install
+          npm run production
+
+      - name: Run tests
+        run: vendor/bin/pest
