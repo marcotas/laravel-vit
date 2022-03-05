@@ -32,10 +32,10 @@ jobs:
       - name: Migrations
         run: php artisan migrate
 
-      - name: Run Pest
-        run: vendor/bin/pest
-
       - name: Install NPM Packages
         run: |
           npm install
           npm run production
+
+      - name: Run Pest
+        run: vendor/bin/pest

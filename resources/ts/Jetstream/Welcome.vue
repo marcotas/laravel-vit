@@ -6,7 +6,7 @@
             </div>
 
             <div class="mt-8 text-2xl">
-                Welcome to your Jetstream application!
+                Welcome, Marco! This is just the beginning... ;)
             </div>
 
             <div class="mt-6 text-gray-500">
