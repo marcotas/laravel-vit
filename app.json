@@ -2,6 +2,6 @@
     "addons": [{ "plan": "heroku-postgresql:hobby-dev" }],
     "buildpacks": [{ "url": "heroku/php" }, { "url": "heroku/nodejs" }],
     "scripts": {
-        "postdeploy": "composer update --dev; php artisan migrate --force --seed; php artisan storage:link"
+        "postdeploy": "composer update --dev; php artisan db:seed --force; php artisan storage:link"
     }
 }
