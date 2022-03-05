@@ -2,6 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Team;
+use Database\Factories\TeamFactory;
+use Database\Factories\UserFactory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -14,6 +17,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        UserFactory::new()
+            ->withPersonalTeam()
+            ->create([
+                'name' => 'Marco',
+                'email' => 'marco@mail.com',
+                'password' => bcrypt('123123'),
+                'email_verified_at' => now(),
+            ]);
     }
 }
