@@ -1,7 +1,21 @@
 {
-    "addons": [{ "plan": "heroku-postgresql:hobby-dev" }],
+    "addons": ["heroku-postgresql:hobby-dev", "heroku-redis", "scheduler"],
     "buildpacks": [{ "url": "heroku/php" }, { "url": "heroku/nodejs" }],
     "scripts": {
-        "postdeploy": "composer update --dev; php artisan db:seed --force; php artisan storage:link"
+        "postdeploy": "composer update --dev; php artisan db:seed --force"
+    },
+    "env": {
+        "APP_NAME": "laravel-vit",
+        "APP_ENV": "production",
+        "APP_KEY": {
+            "generator": "secret"
+        },
+        "APP_DEBUG": "true",
+        "LOG_CHANNEL": "errorlog",
+        "DB_CONNECTION": "pgsql",
+        "CACHE_DRIVER": "redis",
+        "QUEUE_CONNECTION": "redis",
+        "SESSION_DRIVER": "redis",
+        "REDIS_CLIENT": "predis"
     }
 }
